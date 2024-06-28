@@ -1,0 +1,80 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikinow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    {{ form.media }}
+    <style>
+        .sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .sidebar-open {
+            transform: translateX(0);
+        }
+    </style>
+    {% block script %}
+    {% endblock script %}
+</head>
+<body class="flex flex-col min-h-screen w-screen">
+    <!-- Top Navigation -->
+    <nav class="bg-gray-800 text-white w-full p-4 flex justify-between items-center">
+        <div class="text-lg font-bold"><a href="/">Wikinow</a></div>
+        <button id="menu-toggle" class="lg:hidden">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
+        {% if user.is_authenticated %}
+            <ul class="hidden lg:flex space-x-6">
+                <li><a href="/new_page" class="hover:underline">Create</a></li>
+                <li><a href="/random_page" class="hover:underline">Random</a></li>
+                <li><a href="/indexes" class="hover:underline">Indexes</a></li>
+                <li><a href="/logout" class="hover:underline">logout</a></li>
+                <li>{{ user.username }} </li>
+            </ul>
+        {% else %}
+            <ul class="hidden lg:flex space-x-6">
+                <li><a href="{% url 'login' %}" class="hover:underline">Login</a></li>
+                <li><a href="{% url 'register' %}" class="hover:underline">Register</a></li>
+            </ul>
+        {% endif %}
+    </nav>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="sidebar bg-gray-800 text-white w-64 h-full fixed z-[10] top-0 left-0 p-4 lg:hidden">
+        <button id="close-sidebar" class="mb-4">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <ul>
+            {% if user.is_authenticated %}
+                <li><a href="/new_page" class="block py-2">Create</a></li>
+                <li><a href="/random_page" class="block py-2">Random</a></li>
+                <li><a href="/indexes" class="block py-2">Indexes</a></li>
+                <li><a href="/logout" class="block py-2">logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}" class="block py-2">Login</a></li>
+                <li><a href="{% url 'register' %}" class="block py-2">Register</a></li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            document.getElementById('sidebar').classList.toggle('sidebar-open');
+        });
+        document.getElementById('close-sidebar').addEventListener('click', function () {
+            document.getElementById('sidebar').classList.remove('sidebar-open');
+        });
+    </script>
+    
+    {% block body %}
+    {% endblock body %}
+</body>
+</html>

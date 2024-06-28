@@ -1,0 +1,42 @@
+
+{% extends "wikinow/layout.html" %}
+{% load static %}
+{% block body %}
+
+<style>
+    .grid-item {
+      display: inline-block;
+      position: relative;
+      margin: 10px;
+      transition: transform 0.3s;
+    }
+    .grid-item img {
+      border-radius: 8px;
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+    .grid-item:hover {
+      transform: scale(1.05);
+    }
+  </style>
+
+<div class="container mx-auto">
+  <h1 class="text-4xl font-bold text-center mb-8">Random Content Display</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    {% for content in content_list %}
+      <div class="grid-item">
+        <a href="{% url "view_page" content.id %}" target="_blank">
+          <img src="{{ content.thumbnail }}" alt="{{ content.title }}" class="w-full object-cover rounded-lg shadow-lg">
+          <p class="text-center mt-2 text-lg font-semibold">{{ content.title }}</p>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'wikinow/Indexes.js' %}"></script>
+{% endblock script %}

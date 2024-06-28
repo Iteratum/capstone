@@ -1,0 +1,96 @@
+{% extends 'wikinow/layout.html' %}
+{% load static %}
+{% block body %}
+
+<div class="flex-grow flex items-center justify-center relative">
+    <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
+        <video autoplay loop muted class="min-w-full min-h-full object-cover">
+            <source src="{% static 'media/Globe-background.mp4' %}" type="video/mp4">
+        </video>
+    </div>
+    <div class="absolute top-4 right-4 z-[2]">
+        <label class="switch">
+            <input type="checkbox" id="toggle-switch">
+            <span class="slider"></span>
+        </label>
+        <div id="toggle-tooltip" class="absolute top-10 right-0 bg-gray-700 text-white p-2 rounded-lg shadow-lg hidden">
+            Toggle between internal search and Wikipedia search
+        </div>
+    </div>
+    <div class="relative z-[1] text-white text-center">
+        <form id="search-form" action="{% url 'search' %}" method="get" class="flex items-center justify-center relative">
+            <input type="text" id="search-input" name="q" placeholder="Search..." class="w-80 p-3 rounded-full bg-gray-800 text-white focus:outline-none" autocomplete="off">
+        </form>
+        <form id="wiki-search-form" action="https://en.wikipedia.org/wiki/" method="get" class="flex items-center justify-center relative hidden">
+            <input type="text" id="wiki-search-input" name="q" placeholder="Search Wikipedia..." class="w-80 p-3 rounded-full bg-gray-800 text-white focus:outline-none" autocomplete="off">
+        </form>
+        <div id="suggestions" class="absolute left-0 right-0 bg-white text-black mt-1 rounded-lg shadow-lg z-[2] max-h-60 overflow-auto hidden">
+            <!-- Suggestions will be inserted here -->
+        </div>
+        <div id="wiki-suggestions" class="absolute left-0 right-0 bg-white text-black mt-1 rounded-lg shadow-lg z-[2] max-h-60 overflow-auto hidden">
+            <!-- Wikipedia suggestions will be inserted here -->
+        </div>
+        <div class="z-[2]">
+            <a class="absolute bg-blue-500 font-medium top-24 left-44 rounded-3xl p-4" href="/indexes"><button>See All</button></a>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="info-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-[1000] hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm mx-auto">
+        <h2 class="text-xl font-bold mb-4">Welcome to the WikiNow App</h2>
+        <p class="mb-4">Use the toggle button at the top right to toggle between in app searches and wikipedia searches
+        </p>
+        <button id="close-modal" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none">Got it!</button>
+    </div>
+</div>
+
+<style>
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #2196F3;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #21F333;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+</style>
+{% block script %}
+    <script src="{% static 'wikinow/js/app.js' %}"></script>
+{% endblock script %}
+{% endblock %}
+
+
