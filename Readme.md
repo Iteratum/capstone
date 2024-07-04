@@ -1,120 +1,93 @@
-*COMPLEXITY AND DISTINCTIVENESS
+# COMPLEXITY AND DISTINCTIVENESS
 
-
-**Distintiveness 
+## Distintiveness 
 This project is related to the wiki project but has a lot of things that sets it apart.
 
 
-The user interface is very much different because it is running a css framework called tailwind.
-It has models in its sqlite database.
-It has an authentication system built in.
-It also has two search inputs; one for searches within the app and another for searches routing to wikipedia via the wikipedia API. Instead of having the inputs layed out side by side on the page, the intuitive switch-like toggle button at the top right enables a user toggle between the two inputs. However, the built in promt which appears when a user first loads the index page improves the UX(User Experience) by informing the user about the aforestated functionality, and thereby removing any form of ambiguity and complexity the user might experience while trying the use the site.
-It has a navigation panel at the top of the page for large screen devices and a sliding side navigation with a toggle button at the top right for controlling the side navigation panel.
-It has an integrated WYSIWYG text editor called tinyMCE.
+- The user interface is very much different because it is running a css framework called tailwind.
+- It has models in its sqlite database.
+- It has an authentication system built in.
+- It also has two search inputs; one for searches within the app and another for searches routing to wikipedia via the wikipedia API. Instead of having the inputs layed out side by side on the page, the intuitive switch-like toggle button at the top right enables a user toggle between the two inputs. However, the built in promt which appears when a user first loads the index page improves the UX(User Experience) by informing the user about the aforestated functionality, and thereby removing any form of ambiguity and complexity the user might experience while trying the use the site.
+- It has a navigation panel at the top of the page for large screen devices and a sliding side navigation with a toggle button at the top right for controlling the side navigation panel.
+- It has an integrated WYSIWYG text editor called tinyMCE.
 
-
-**Complexity
+## Complexity
 The complexities mostly stems from the installation, configuration and integration of external functionalities and APIs.
-
 
 Such complexities include:
 
+    - The integration of the tinyMCE text editor which involved adding an api key and sending additional request to the api in order to load the editor. Subsequently, I was able avoid making such a request which could possibly increase load time as a result of network issues by installing the editor as a django package from readthedocs.com and also another package called django-widget-tweaks to assist in the configurations. Basically, the editor is now executed and served by my django backend to the templates after a series of configurations. Further improving the load time and reducing the number of requests.
+    - The display of a list of search results from wikipedia. So, when a minimun of two texts(strings) are entered in the input, it returns the titles of articles on wikipedia containing the texts the user entered.
+    - The use of session to check whether a user has once/initially accessed the page to ensure the prompt doesn't appear everytime a user loads the page.
 
-The integration of the tinyMCE text editor which involved adding an api key and sending additional request to the api in order to load the editor. Subsequently, I was able avoid making such a request which could possibly increase load time as a result of network issues by installing the editor as a django package from readthedocs.com and also another package called django-widget-tweaks to assist in the configurations. Basically, the editor is now executed and served by my django backend to the templates after a series of configurations. Further improving the load time and reducing the number of requests.
-The display of a list of search results from wikipedia. So, when a minimun of two texts(strings) are entered in the input, it returns the titles of articles on wikipedia containing the texts the user entered.
-The use of session to check whether a user has once/initially accessed the page to ensure the prompt doesn't appear everytime a user loads the page.
+# FILE CONTENTS
 
-
-*FILE CONTENTS
-
-
-Templates files:
-The edit_page.html contains code for editing a page.
-The index.html contains the code that displays the home page components.
-The indexes.html contains the code that is responsible for displaying all the user generated contents stored in the database.
-The layout.html contains code for displaying the navigation layouts for both mobile and large screen devices.
-The login.html contains inputs form for user authentication.
-The new_page.html contains code for creating pages.
-The random_page.html contains code for displaying random a page generated by the server from the database.
-The register.html contains input form for registering new users.
-The view_page.html contains code for displaying specific contents requested by a user from the database.
-
+- Templates files:
+    - The edit_page.html contains code for editing a page.
+    - The index.html contains the code that displays the home page components.
+    - The indexes.html contains the code that is responsible for displaying all the user generated contents stored in the database.
+    - The layout.html contains code for displaying the navigation layouts for both mobile and large screen devices.
+    - The login.html contains inputs form for user authentication.
+    - The new_page.html contains code for creating pages.
+    - The random_page.html contains code for displaying random a page generated by the server from the database.
+    - The register.html contains input form for registering new users.
+    - The view_page.html contains code for displaying specific contents requested by a user from the database.
 
 Other files:
-The app.js file is a javascript file responsible for making session requests and displaying a prompt when a user initally loads the index page. It also sends requests with query parameters to the wikinow and wikipedia api and subsequently returns the response as suggestions when the user enters some texts into the inputs provided.
-The forms.py file is a python file that handles form creation for registration, login and entry.
+    - The app.js file is a javascript file responsible for making session requests and displaying a prompt when a user initally loads the index page. It also sends requests with query parameters to the wikinow and wikipedia api and subsequently returns the response as suggestions when the user enters some texts into the inputs provided.
+    - The forms.py file is a python file that handles form creation for registration, login and entry.
 
-
-
-*HOW TO RUN
-Clone the repository or download the distribution code from https://github.com/me50/Iteratum/archive/refs/heads/web50/projects/2020/x/network.zip and unzip it.
-In your terminal, run cd capstone directory.
-Run python manage.py makemigrations wikinow to make migrations for the wikinow app.
-Run python manage.py migrate to apply migrations to your database.
-Then add AUTH_USER_MODEL = 'wikinow.CustomUser' to your settings.py file
-
+# HOW TO RUN
+- Clone the repository or download the distribution code from https://github.com/me50/Iteratum/archive/refs/heads/web50/projects/2020/x/network.zip and unzip it.
+- Run python manage.py makemigrations wikinow to make migrations for the wikinow app.
+- Run python manage.py migrate to apply migrations to your database.
+- Then add `AUTH_USER_MODEL = 'wikinow.CustomUser'` to your settings.py file
 
 First, after making and applying migrations for the project, run python manage.py runserver to start the web server. Open the web server in your browser, and use the “Register” link to register for a new account. You’re welcome to choose any email address (e.g. foo@example.com) and password you’d like for this: credentials need not be valid credentials or actual email addresses.
 
+# COMPLEXITY AND DISTINCTIVENESS
 
-
-*COMPLEXITY AND DISTINCTIVENESS
-
-
-**Distintiveness 
+## Distintiveness 
 This project is related to the wiki project but has a lot of things that sets it apart.
 
+- The user interface is very much different because it is running a css framework called tailwind.
+- It has models in its sqlite database.
+- It has an authentication system built in.
+- It also has two search inputs; one for searches within the app and another for searches routing to wikipedia via the wikipedia API. Instead of having the inputs layed out side by side on the page, the intuitive switch-like toggle button at the top right enables a user toggle between the two inputs. However, the built in promt which appears when a user first loads the index page improves the UX(User Experience) by informing the user about the aforestated functionality, and thereby removing any form of ambiguity and complexity the user might experience while trying the use the site.
+- It has a navigation panel at the top of the page for large screen devices and a sliding side navigation with a toggle button at the top right for controlling the side navigation panel.
+- It has an integrated WYSIWYG text editor called tinyMCE.
 
-The user interface is very much different because it is running a css framework called tailwind.
-It has models in its sqlite database.
-It has an authentication system built in.
-It also has two search inputs; one for searches within the app and another for searches routing to wikipedia via the wikipedia API. Instead of having the inputs layed out side by side on the page, the intuitive switch-like toggle button at the top right enables a user toggle between the two inputs. However, the built in promt which appears when a user first loads the index page improves the UX(User Experience) by informing the user about the aforestated functionality, and thereby removing any form of ambiguity and complexity the user might experience while trying the use the site.
-It has a navigation panel at the top of the page for large screen devices and a sliding side navigation with a toggle button at the top right for controlling the side navigation panel.
-It has an integrated WYSIWYG text editor called tinyMCE.
-
-
-**Complexity
+## Complexity
 The complexities mostly stems from the installation, configuration and integration of external functionalities and APIs.
-
-
 Such complexities include:
 
+- The integration of the tinyMCE text editor which involved adding an api key and sending additional request to the api in order to load the editor. Subsequently, I was able avoid making such a request which could possibly increase load time as a result of network issues by installing the editor as a django package from readthedocs.com and also another package called django-widget-tweaks to assist in the configurations. Basically, the editor is now executed and served by my django backend to the templates after a series of configurations. Further improving the load time and reducing the number of requests.
+- The display of a list of search results from wikipedia. So, when a minimun of two texts(strings) are entered in the input, it returns the titles of articles on wikipedia containing the texts the user entered.
+- The use of session to check whether a user has once/initially accessed the page to ensure the prompt doesn't appear everytime a user loads the page.
 
-The integration of the tinyMCE text editor which involved adding an api key and sending additional request to the api in order to load the editor. Subsequently, I was able avoid making such a request which could possibly increase load time as a result of network issues by installing the editor as a django package from readthedocs.com and also another package called django-widget-tweaks to assist in the configurations. Basically, the editor is now executed and served by my django backend to the templates after a series of configurations. Further improving the load time and reducing the number of requests.
-The display of a list of search results from wikipedia. So, when a minimun of two texts(strings) are entered in the input, it returns the titles of articles on wikipedia containing the texts the user entered.
-The use of session to check whether a user has once/initially accessed the page to ensure the prompt doesn't appear everytime a user loads the page.
-
-
-*FILE CONTENTS
-
+# FILE CONTENTS
 
 Templates files:
-The edit_page.html contains code for editing a page.
-The index.html contains the code that displays the home page components.
-The indexes.html contains the code that is responsible for displaying all the user generated contents stored in the database.
-The layout.html contains code for displaying the navigation layouts for both mobile and large screen devices.
-The login.html contains inputs form for user authentication.
-The new_page.html contains code for creating pages.
-The random_page.html contains code for displaying random a page generated by the server from the database.
-The register.html contains input form for registering new users.
-The view_page.html contains code for displaying specific contents requested by a user from the database.
+- The edit_page.html contains code for editing a page.
+- The index.html contains the code that displays the home page components.
+- The indexes.html contains the code that is responsible for displaying all the user generated contents stored in the database.
+- The layout.html contains code for displaying the navigation layouts for both mobile and large screen devices.
+- The login.html contains inputs form for user authentication.
+- The new_page.html contains code for creating pages.
+- The random_page.html contains code for displaying random a page generated by the server from the database.
+- The register.html contains input form for registering new users.
+- The view_page.html contains code for displaying specific contents requested by a user from the database.
 
 
 Other files:
-The app.js file is a javascript file responsible for making session requests and displaying a prompt when a user initally loads the index page. It also sends requests with query parameters to the wikinow and wikipedia api and subsequently returns the response as suggestions when the user enters some texts into the inputs provided.
-The forms.py file is a python file that handles form creation for registration, login and entry.
+- The app.js file is a javascript file responsible for making session requests and displaying a prompt when a user initally loads the index page. It also sends requests with query parameters to the wikinow and wikipedia api and subsequently returns the response as suggestions when the user enters some texts into the inputs provided.
+- The forms.py file is a python file that handles form creation for registration, login and entry.
 
-
-
-*HOW TO RUN
-Clone the repository or download the distribution code from https://github.com/me50/Iteratum/archive/refs/heads/web50/projects/2020/x/network.zip and unzip it.
-In your terminal, run cd capstone directory.
-Run python manage.py makemigrations wikinow to make migrations for the wikinow app.
-Run python manage.py migrate to apply migrations to your database.
-Then add AUTH_USER_MODEL = 'wikinow.CustomUser' to your settings.py file
-
+# HOW TO RUN
+- Clone the repository or download the distribution code from https://github.com/me50/Iteratum/archive/refs/heads/web50/projects/2020/x/network.zip and unzip it.
+- In your terminal, run cd capstone directory.
+- Run python manage.py makemigrations wikinow to make migrations for the wikinow app.
+- Run python manage.py migrate to apply migrations to your database.
+- Then add AUTH_USER_MODEL = 'wikinow.CustomUser' to your settings.py file
 
 First, after making and applying migrations for the project, run python manage.py runserver to start the web server. Open the web server in your browser, and use the “Register” link to register for a new account. You’re welcome to choose any email address (e.g. foo@example.com) and password you’d like for this: credentials need not be valid credentials or actual email addresses.
-
-
-
