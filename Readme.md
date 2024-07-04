@@ -1,4 +1,4 @@
-# COMPLEXITY AND DISTINCTIVENESS
+# DISTINCTIVENESS AND COMPLEXITY
 
 ## Distintiveness 
 This project is related to the wiki project but has a lot of things that sets it apart.
