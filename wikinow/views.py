@@ -2,15 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-import markdown
 import random
-from . import utility
 from wikinow.models import *
 from wikinow.forms import EntryForm
-from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-from django.template.loader import render_to_string
-from django.utils.text import slugify
 
 def index(request):
     index_entries = Entry.objects.all()
@@ -33,7 +29,7 @@ def new_page(request):
             if Entry.objects.filter(title__iexact=title).exists():
                 response_message = f"An entry with title '{title}' already exists."
             else:
-                entry = form.save()
+                form.save()
                 response_message = 'Entry created successfully!'
                 form = EntryForm()
         else:

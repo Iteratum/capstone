@@ -103,7 +103,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'wikinow.CustomUser'
 LOGIN_REDIRECT_URL = 'index'  # Redirect to index after login
 REGISTER_REDIRECT_URL = 'index'
 LOGOUT_REDIRECT_URL = 'login'  # Redirect to login after logout
