@@ -17,5 +17,5 @@ class LoginForm(AuthenticationForm):
 class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
-        fields = ['title', 'content', 'thumbnail']
+        fields = ['title', 'content', 'thumbnail', 'creator']
 

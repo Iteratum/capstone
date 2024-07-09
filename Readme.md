@@ -38,8 +38,7 @@ Such complexities include:
 
 # HOW TO RUN
 - Clone the repository or download the distribution code from https://github.com/me50/Iteratum/archive/refs/heads/web50/projects/2020/x/network.zip and unzip it.
-- Run python manage.py makemigrations wikinow to make migrations for the wikinow app.
-- Run python manage.py migrate to apply migrations to your database.
-- Then add `AUTH_USER_MODEL = 'wikinow.CustomUser'` to your settings.py file
+- Run `python manage.py makemigrations wikinow` to make migrations for the wikinow app.
+- Run `python manage.py migrate` to apply migrations to your database.
 
 First, after making and applying migrations for the project, run python manage.py runserver to start the web server. Open the web server in your browser, and use the “Register” link to register for a new account. You’re welcome to choose any email address (e.g. foo@example.com) and password you’d like for this: credentials need not be valid credentials or actual email addresses.

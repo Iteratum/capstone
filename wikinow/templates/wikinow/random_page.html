@@ -1,4 +1,3 @@
-
 {% extends "wikinow/layout.html" %}
 {% load static %}
 {% block body %}
@@ -26,27 +25,23 @@
       margin-top: 1rem;
       margin-bottom: 0.5rem;
     }
-  </style>
+</style>
 
-  <div class="container mx-auto p-4 max-w-7xl">
-    {% for page in random_page %}
-        <header class="bg-white shadow-md rounded-lg p-6 mb-6">
-            <h1 class="text-4xl font-bold mb-4">{{ page.title }}</h1>
-            <p class="text-gray-600">Created at: {{ page.created_at|date:"F j, Y" }}</p>
-            {% if page.creator == current_user %}
-                <a href="{% url 'edit_page' page.id %}" class="inline-block py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300">Edit</a>
-            {% endif %}
-        </header>
+<div class="container mx-auto p-4 max-w-7xl">
+  <header class="bg-white shadow-md rounded-lg p-6 mb-6">
+    <h1 class="text-4xl font-bold mb-4">{{ random_page.title }}</h1>
+    <p class="text-gray-600">Created at: {{ random_page.created_at|date:"F j, Y" }}</p>
+    {% if is_creator %}
+        <a href="{% url 'edit_page' random_page.id %}" class="inline-block py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300">Edit</a>
+    {% endif %}
+  </header>
 
-        <article class="bg-white shadow-md rounded-lg p-6 content overflow-hidden">
-            <div class="prose max-w-none">
-                {{ page.content|safe }}
-            </div>
-        </article>
-    {% endfor %}
-  </div>
-
-
+  <article class="bg-white shadow-md rounded-lg p-6 content overflow-hidden">
+    <div class="prose max-w-none">
+      {{ random_page.content|safe }}
+    </div>
+  </article>
+</div>
 
 {% endblock %}
 

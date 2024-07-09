@@ -14,16 +14,30 @@ def index(request):
 
 
 def random_page(request):
-   total = Entry.objects.all().count()
-   pk = random.randint(1, total)
-   random_page = Entry.objects.filter(pk=pk)
-   return render(request, 'wikinow/random_page.html', {'random_page': random_page})
+    total = Entry.objects.count()
+    if total == 0:
+        return render(request, 'wikinow/random_page.html', {'random_page': None, 'is_creator': False})
+
+    pk = random.randint(1, total)
+    random_page = get_object_or_404(Entry, pk=pk)
+    
+    is_creator = random_page.creator == request.user
+    print(f"User: {request.user}, Creator: {random_page.creator}, Is Creator: {is_creator}")
+    
+    return render(request, 'wikinow/random_page.html', {'random_page': random_page, 'is_creator': is_creator})
+
     
 @login_required
 def new_page(request):
     response_message = ''
+    user = request.user
+    print(user)
     if request.method == 'POST':
-        form = EntryForm(request.POST)
+        # Create a copy of POST data to modify
+        post_data = request.POST.copy()
+        # Add the creator to the form data
+        post_data['creator'] = user
+        form = EntryForm(post_data)
         if form.is_valid():
             title = form.cleaned_data.get('title')
             if Entry.objects.filter(title__iexact=title).exists():
@@ -37,24 +51,34 @@ def new_page(request):
     else:
         form = EntryForm()
     return render(request, 'wikinow/new_page.html', {'form': form, 'response_message': response_message})
+
+
     
 @login_required
 def edit_page(request, page_id):
     page = get_object_or_404(Entry, id=page_id)
 
     if request.method == 'POST':
-        form = EntryForm(request.POST, instance=page)
+        post_data = request.POST.copy()
+        # Add the creator to the form data
+        post_data['creator'] = request.user.id
+        form = EntryForm(post_data, instance=page)
         if form.is_valid():
             form.save()
-            return redirect('view_page', page_id=page.id)
+            response_message = 'Entry successfully updated.'
+            return HttpResponseRedirect(f"{reverse('view_page', args=[page.id])}?response_message={response_message}")
+        else:
+            print("Form is invalid")
+            print(form.errors)
     else:
         form = EntryForm(instance=page)
-
     return render(request, 'wikinow/edit_page.html', {'form': form, 'page': page})
 
+
 def view_page(request, page_id):
-    entry = get_object_or_404(Entry, id=page_id)
-    return render(request, 'wikinow/view_page.html', {'entry': entry})
+    page = get_object_or_404(Entry, id=page_id)
+    response_message = request.GET.get('response_message', '')
+    return render(request, 'wikinow/view_page.html', {'page': page, 'response_message': response_message})
 
 def search(request):
     query = request.GET.get('q', '')

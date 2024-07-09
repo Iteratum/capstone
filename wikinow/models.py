@@ -12,12 +12,11 @@ class CustomUser(AbstractUser):
         return self.username
 
 class Entry(models.Model):
-    title = models.CharField(max_length=50, null=True)
-    content = tinymce_models.HTMLField(null=True)
-    thumbnail = models.URLField(null=True, blank=False)
+    title = models.CharField(max_length=50, null=False, default='')
+    content = tinymce_models.HTMLField(null=False, default='')
+    thumbnail = models.URLField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
-    
+    creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=False)
     def __str__(self):
         return self.title

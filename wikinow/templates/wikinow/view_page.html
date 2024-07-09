@@ -4,18 +4,38 @@
 
 <div class="container mx-auto p-4 max-w-7xl">
     <header class="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h1 class="text-4xl font-bold mb-4">{{ entry.title }}</h1>
-        <p class="text-gray-600">Created at: {{ entry.created_at|date:"F j, Y" }}</p>
-        {% if entry.creator == request.user %}
-            <a href="{% url 'edit_page' entry.id %}" class="inline-block py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300">Edit</a>
+        
+        
+        {% if response_message %}
+            <div id="response-message" class="mb-4 p-4 bg-blue-100 text-blue-800 rounded-lg">
+                {{ response_message }}
+            </div>
+        {% endif %}
+
+        <h1 class="text-4xl font-bold mb-4">{{ page.title }}</h1>
+        <p class="text-gray-600">Created at: {{ page.created_at|date:"F j, Y" }}</p>
+        {% if page.creator == request.user %}
+            <a href="{% url 'edit_page' page.id %}" class="inline-block py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-300">Edit</a>
         {% endif %}
     </header>
 
     <article class="bg-white shadow-md rounded-lg p-6 content overflow-hidden">
         <div class="prose max-w-none">
-            {{ entry.content|safe }}
+            {{ page.content|safe }}
         </div>
     </article>
 </div>
 
 {% endblock %}
+{% block script %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const responseMessage = document.getElementById('response-message');
+            if (responseMessage) {
+                setTimeout(function () {
+                    responseMessage.style.display = 'none';
+                }, 5000); // 5000 milliseconds = 5 seconds
+            }
+        });
+    </script>
+{% endblock script %}

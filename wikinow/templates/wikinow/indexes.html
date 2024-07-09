@@ -26,7 +26,7 @@
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
     {% for content in content_list %}
       <div class="grid-item">
-        <a href="{% url "view_page" content.id %}" target="_blank">
+        <a href="{% url "view_page" content.id %}">
           <img src="{{ content.thumbnail }}" alt="{{ content.title }}" class="w-full object-cover rounded-lg shadow-lg">
           <p class="text-center mt-2 text-lg font-semibold">{{ content.title }}</p>
         </a>
